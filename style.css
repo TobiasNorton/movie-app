@@ -3,7 +3,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0;
-  background-color: grey;
+  font-family: 'Poppins', sans-serif;
 }
 
 nav {
@@ -32,4 +32,28 @@ main {
   max-width: 1400px;
   background-color: lightgray;
   padding: 60px 0;
+}
+
+.results-container {
+  padding: 20px;
+  margin: 10px;
+}
+
+.results-item {
+  display: flex;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: white;
+}
+
+.results-item-left {
+  margin-right: 20px;
+}
+
+.results-image {
+  width: 100px;
+}
+
+.back-to-search:hover {
+  cursor: pointer;
 }
