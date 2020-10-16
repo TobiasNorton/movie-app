@@ -1,7 +1,5 @@
 const backToSearch = (event) => {
-  searchForm.removeAttribute('hidden')
-  const resultsContainer = document.querySelector('.results-container')
-  resultsContainer.setAttribute('hidden', '')
+  location.reload()
 }
 
 const submit = (event) => {
@@ -22,9 +20,10 @@ const submit = (event) => {
       // Conditional statement will go here to call a function depending on the type of search
       console.log(data)
       const resultsContainer = document.querySelector('.results-container')
-      const resultsCount = document.createElement('h4')
+      const resultsCount = document.createElement('p')
       resultsContainer.appendChild(resultsCount)
       resultsCount.textContent += `Showing (${data && data.d && data.d.length}) results`
+      resultsCount.classList.add('results-count')
 
       const backToSearchButton = document.querySelector('.back-to-search')
       backToSearchButton.addEventListener('click', backToSearch)
@@ -69,6 +68,10 @@ const submit = (event) => {
             resultsItemRight.appendChild(cast)
             cast.textContent += result.s
           }
+
+          const moreInfo = document.createElement('button')
+          resultsItemRight.appendChild(moreInfo)
+          moreInfo.textContent += 'More Information'
 
           resultsContainer.removeAttribute('hidden')
         })

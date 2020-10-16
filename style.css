@@ -30,7 +30,7 @@ main {
   align-items: center;
   width: 80vw;
   max-width: 1400px;
-  background-color: lightgray;
+  background-color: hsl(51, 86%, 72%);
   padding: 60px 0;
 }
 
@@ -54,6 +54,24 @@ main {
   width: 100px;
 }
 
+.back-to-search {
+  font-weight: 500;
+}
+
 .back-to-search:hover {
   cursor: pointer;
+}
+
+.results-count {
+  font-weight: 700;
+}
+
+input {
+  font-family: 'Poppins', sans-serif;
+  margin-left: 5px;
+  width: 200px;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
 }
