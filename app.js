@@ -2,8 +2,34 @@ const backToSearch = (event) => {
   location.reload()
 }
 
+const getProfile = () => {
+  const profileId = window.location.search && window.location.search.slice(4)
+
+  fetch(
+    `https://imdb8.p.rapidapi.com/title/get-overview-details?currentCountry=US&tconst=${profileId}`,
+    {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-host': 'imdb8.p.rapidapi.com',
+        'x-rapidapi-key': '63010853f1msha1e4d8a3ba86bd6p1aa1aajsn43c2af2dca8d',
+      },
+    }
+  )
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+// TODO: Implement try/catch
 const submit = (event) => {
   event.preventDefault()
+  const searchForm = document.querySelector('.search-form')
   searchForm.setAttribute('hidden', '')
   const userInput = document.querySelector('.title-input').value
   const spaces = / /gi
@@ -69,8 +95,9 @@ const submit = (event) => {
             cast.textContent += result.s
           }
 
-          const moreInfo = document.createElement('button')
+          const moreInfo = document.createElement('a')
           resultsItemRight.appendChild(moreInfo)
+          moreInfo.setAttribute('href', `/profile.html?id=${result.id}`)
           moreInfo.textContent += 'More Information'
 
           resultsContainer.removeAttribute('hidden')
@@ -82,8 +109,10 @@ const submit = (event) => {
     })
 }
 
-const searchForm = document.querySelector('.search-form')
-searchForm.onsubmit = submit
+if (window.location.pathname === '/profile.html') {
+  getProfile()
+}
 
-// TODO: Make submit function work for all form submissions, accepting url, userInput and callBack function (what to do with data) as params
-// In this submit function, implement try/catch since there are 2 thens
+if (document.querySelector('.search-form')) {
+  document.querySelector('.search-form').onsubmit = submit
+}
