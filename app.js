@@ -20,6 +20,69 @@ const getProfile = () => {
     })
     .then((data) => {
       console.log(data)
+      const title = document.querySelector('.title')
+      title.textContent += data.title && data.title.title
+
+      const year = document.querySelector('.year')
+      year.textContent += `(${data.title && data.title.year})`
+
+      const mainImage = document.querySelector('.main-image')
+      mainImage.setAttribute('src', data.title && data.title.image && data.title.image.url)
+
+      const rating = document.querySelector('.rating')
+      rating.textContent +=
+        data.certificates &&
+        data.certificates.US &&
+        data.certificates.US[0] &&
+        data.certificates.US[0].certificate
+
+      const runningTime = document.querySelector('.running-time')
+      const runningTimeText = `${data.title && data.title.runningTimeInMinutes} minutes`
+      runningTime.textContent += runningTimeText
+
+      const genres = document.querySelector('.genres')
+      const genreString = data.genres && data.genres.join(', ')
+      genres.textContent += genreString
+
+      const releaseDateUnformatted = new Date(data.releaseDate)
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ]
+
+      const monthIndex = releaseDateUnformatted.getMonth()
+      const releaseMonth = months[monthIndex]
+      const releaseDate = releaseDateUnformatted.getDate()
+      const releaseYear = releaseDateUnformatted.getFullYear()
+      const releaseDateNode = document.querySelector('.release-date')
+      const formattedReleaseDate = `${releaseMonth} ${releaseDate}, ${releaseYear}`
+      releaseDateNode.textContent += formattedReleaseDate
+
+      const scoreElement = document.querySelector('.score')
+      const score = data.ratings && data.ratings.rating
+      scoreElement.textContent += score
+
+      if (scoreElement.textContent) {
+        const outOfTen = document.querySelector('.out-of-ten')
+        outOfTen.textContent = '/10'
+
+        const totalRatings = document.querySelector('.total-ratings')
+        const ratingsCount = data.ratings && data.ratings.ratingCount
+        totalRatings.textContent += ratingsCount ? `${ratingsCount} ratings` : 'No ratings'
+      }
+
+      const plotOutline = document.querySelector('.plot-outline')
+      plotOutline.textContent += data.plotOutline && data.plotOutline.text
     })
     .catch((err) => {
       console.log(err)
@@ -43,7 +106,6 @@ const submit = (event) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Conditional statement will go here to call a function depending on the type of search
       console.log(data)
       const resultsContainer = document.querySelector('.results-container')
       const resultsCount = document.createElement('p')
